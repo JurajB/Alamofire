@@ -207,7 +207,8 @@ public struct URLEncoding: ParameterEncoding {
         var components: [(String, String)] = []
 
         if let dictionary = value as? [String: Any] {
-            for (nestedKey, value) in dictionary {
+            for nestedKey in dictionary.keys.sorted(by: <) {
+                let value = dictionary[nestedKey]!
                 components += queryComponents(fromKey: "\(key)[\(nestedKey)]", value: value)
             }
         } else if let array = value as? [Any] {
